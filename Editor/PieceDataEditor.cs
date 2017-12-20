@@ -1,4 +1,10 @@
-﻿#if UNITY_EDITOR
+/*
+ * Arthur Cousseau, 2017
+ * https://www.linkedin.com/in/arthurcousseau/
+ * Please share this if you enjoy it! :)
+*/
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
