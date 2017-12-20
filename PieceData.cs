@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+/*
+ * Arthur Cousseau, 2017
+ * https://www.linkedin.com/in/arthurcousseau/
+ * Please share this if you enjoy it! :)
+*/
+
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Piece_Data", menuName = "Eldoir/Piece")]
 public class PieceData : ScriptableObject
