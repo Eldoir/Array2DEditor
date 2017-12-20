@@ -1,3 +1,8 @@
+Arthur Cousseau, 2017
+https://www.linkedin.com/in/arthurcousseau/
+Please share this if you enjoy it! :)
+
+
 HOW TO USE:
 
 - Right click in your Project or Hierarchy window, or go to the Assets menu tab.
