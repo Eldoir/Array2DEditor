@@ -34,7 +34,7 @@ Everything comes into a few files (and most of them are used for demo).
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Go further
+## Going further...
 
 We could do many things on top of this.
 

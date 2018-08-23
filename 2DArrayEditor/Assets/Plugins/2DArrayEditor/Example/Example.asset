@@ -14,5 +14,5 @@ MonoBehaviour:
   gridSize: 3
   cells:
   - row: 010000
-  - row: 000100000000
+  - row: 010101000000
   - row: 000001000000000000

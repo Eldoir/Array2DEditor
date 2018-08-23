@@ -11,10 +11,17 @@ public class PieceData : ScriptableObject
 {
     private const int defaultGridSize = 3;
 
+    [SerializeField]
     [Range(1, 5)]
-    public int gridSize = defaultGridSize;
+    private int gridSize = defaultGridSize;
 
-    public CellRow[] cells = new CellRow[defaultGridSize];
+    /// <summary>
+    /// For now, the grid is a square, so the size is just an int.
+    /// </summary>
+    public int GridSize { get { return gridSize; } }
+
+    [SerializeField]
+    private CellRow[] cells = new CellRow[defaultGridSize];
 
 
     public bool[,] GetCells()
@@ -25,7 +32,7 @@ public class PieceData : ScriptableObject
         {
             for (int j = 0; j < gridSize; j++)
             {
-                ret[i, j] = cells[i].row[j];
+                ret[i, j] = cells[i].Row[j];
             }
         }
 
@@ -43,7 +50,7 @@ public class PieceData : ScriptableObject
         {
             for (int j = 0; j < gridSize; j++)
             {
-                if (cells[i].row[j]) count++;
+                if (cells[i].Row[j]) count++;
             }
         }
 
@@ -54,6 +61,9 @@ public class PieceData : ScriptableObject
     [System.Serializable]
     public class CellRow
     {
-        public bool[] row = new bool[defaultGridSize];
+        [SerializeField]
+        private bool[] row = new bool[defaultGridSize];
+
+        public bool[] Row { get { return row; } }
     }
 }
