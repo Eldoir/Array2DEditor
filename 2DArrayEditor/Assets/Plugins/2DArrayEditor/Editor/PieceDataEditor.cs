@@ -4,7 +4,6 @@
  * Please share this if you enjoy it! :)
 */
 
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -13,10 +12,11 @@ public class PieceDataEditor : Editor
 {
     private const int defaultCellSize = 25; // px
 
-    SerializedProperty gridSize;
-    SerializedProperty cells;
+    private SerializedProperty gridSize;
+    private SerializedProperty cells;
 
-    Rect lastRect;
+    private Rect lastRect;
+
 
 	void OnEnable()
 	{
@@ -46,7 +46,7 @@ public class PieceDataEditor : Editor
 
         if (GUILayout.Button("Count active cells")) // Just an example, you can remove this.
         {
-            Debug.Log((target as PieceData).GetCountActiveCells());
+            EditorUtility.DisplayDialog("Active cells count", "Active cells count: " + (target as PieceData).GetCountActiveCells(), "OK");
         }
 
         serializedObject.ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
@@ -99,4 +99,3 @@ public class PieceDataEditor : Editor
         return cells.GetArrayElementAtIndex(idx).FindPropertyRelative("row");
     }
 }
-#endif
