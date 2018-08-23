@@ -23,8 +23,8 @@ Everything comes into a few files (and most of them are used for demo).
 
 ## Screenshots
 
-![Example 1](/Screenshots/Example_1.png?raw=true "Example 1")
-![Example 2](/Screenshots/Example_2.png?raw=true "Example 2")
+![Example 1](Screenshots/Example_1.PNG)
+![Example 2](Screenshots/Example_2.PNG)
 
 ## Authors
 
