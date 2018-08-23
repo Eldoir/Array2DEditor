@@ -26,6 +26,10 @@ Everything comes into a few files (and most of them are used for demo).
 ![Example 1](Screenshots/Example_1.PNG)
 ![Example 2](Screenshots/Example_2.PNG)
 
+## Notes
+
+* Last tested with [Unity 2018.2.1f1](https://unity3d.com/unity/whatsnew/unity-2018.2.1).
+
 ## Authors
 
 * **[Arthur Cousseau](https://www.linkedin.com/in/arthurcousseau/)**
