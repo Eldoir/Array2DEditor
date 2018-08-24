@@ -4,7 +4,7 @@ Use this if you want to deal with 2D arrays easily within the inspector of Unity
 
 ## Getting Started
 
-For a quick import into an existing project, just get the UnityPackage.
+For a quick import into an existing project, just get the [UnityPackage](2DArrayEditorPackage.unitypackage).
 
 The 2DArrayEditor folder is an empty project with only the plugin imported and some examples! :)
 
