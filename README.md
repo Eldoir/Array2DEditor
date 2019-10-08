@@ -1,34 +1,31 @@
-# 2DArrayEditor
+# Array2DEditor
 
 Use this if you want to deal with 2D arrays easily within the inspector of Unity.
 
 ## Getting Started
 
-For a quick import into an existing project, just get the [UnityPackage](2DArrayEditorPackage.unitypackage).
+For a quick import into an existing project, just get the [UnityPackage](Array2DEditorPackage.unitypackage).
 
-The 2DArrayEditor folder is an empty project with only the plugin imported and some examples! :)
+The Array2DEditor folder is an empty project with only the plugin imported and some examples! :)
 
 Then, when you're in your project:
 
 - Right click in your Project or Hierarchy window, or go to the Assets menu tab.
-- Go to Create -> Eldoir -> Piece
-- A new file named "Piece_Data" is created.
-- Feel free to change the grid size! :)
-
-## Prerequisites
-
-There are absolutely no prerequisites to this plugin.
-
-Everything comes into a few files (and most of them are used for demo).
+- Go to Create -> Array2D and select the type of your choice (_bool_, _int_, _float_, _string_).
+- A new file is created, you can freely change its values!
+- Reference that file in one of your scripts, and call its method GetCells() to get the content of the array.
+- When you do this, don't forget to add _using Array2DEditor_ on top of your script.
+- You can check the ExampleScript if you have trouble understanding how it works and how it can be useful.
 
 ## Screenshots
 
 ![Example 1](Screenshots/Example_1.PNG)
 ![Example 2](Screenshots/Example_2.PNG)
+![Example 3](Screenshots/Example_3.PNG)
 
 ## Notes
 
-* Last tested with [Unity 2018.2.1f1](https://unity3d.com/unity/whatsnew/unity-2018.2.1).
+* Last tested with [Unity 2018.3.8f1](https://unity3d.com/unity/whats-new/2018.3.8).
 
 ## Authors
 
@@ -37,13 +34,3 @@ Everything comes into a few files (and most of them are used for demo).
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Going further...
-
-We could do many things on top of this.
-
-For example:
-
-- Warn the user before changing the grid size, as it cleans the grid.
-- Better UI to choose whatever size we want.
-- Generic template to display not only arrays of booleans, but also arrays of ints, etc...

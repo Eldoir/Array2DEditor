@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cca0a2d0482964fac97e9bf1a60a2d, type: 3}
+  m_Name: Example_Bool
+  m_EditorClassIdentifier: 
+  gridSize: {x: 4, y: 4}
+  cells:
+  - row: 01000001
+  - row: 0100000101000000
+  - row: 010000010100000001000000
+  - row: 00010100010000000100000001000000
