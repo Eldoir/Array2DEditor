@@ -29,6 +29,7 @@ You can create you own enum files! In order to do that:
 - Open the file and rename the class.
 - Replace any mention of *Enums.ExampleEnum* with your own enum name.
 - In that same file, don't forget to rename *CellRowExampleEnum* as well.
+
 Then:
 - Duplicate the *Array2DExampleEnumEditor* script and rename it.
 - Open the file and rename the class.
