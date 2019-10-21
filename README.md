@@ -15,7 +15,7 @@ Then, when you're in your project:
 - A new file is created, you can freely change its values!
 - Reference that file in one of your scripts, and call its method GetCells() to get the content of the array.
 - When you do this, don't forget to add _using Array2DEditor_ on top of your script.
-- You can check the ExampleScene and ExampleScript if you have trouble understanding how it works and how it can be useful.
+- You can check the ExampleScene if you have trouble understanding how it works and how it can be useful.
 
 ## Screenshots
 
