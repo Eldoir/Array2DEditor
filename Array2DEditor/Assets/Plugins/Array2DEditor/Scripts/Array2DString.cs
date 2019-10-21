@@ -14,4 +14,7 @@ namespace Array2DEditor
             return cells[idx];
         }
     }
+
+    [System.Serializable]
+    public class CellRowString : CellRow<string> { }
 }

@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94cca0a2d0482964fac97e9bf1a60a2d, type: 3}
-  m_Name: Example_Bool
+  m_Script: {fileID: 11500000, guid: f649da5a8ccd26a4d95add8845d8f0a1, type: 3}
+  m_Name: Example_Enum
   m_EditorClassIdentifier: 
-  gridSize: {x: 4, y: 4}
+  gridSize: {x: 3, y: 3}
   cells:
-  - row: 01000001
-  - row: 0100000100000000
-  - row: 010000010000000000000000
-  - row: 00010100000000000000000000000000
+  - row: 000000000100000000000000
+  - row: 010000000200000001000000010000000000000000000000
+  - row: 000000000100000000000000000000000100000000000000010000000000000000000000

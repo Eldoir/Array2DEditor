@@ -29,7 +29,7 @@ namespace Array2DEditor
             {
                 for (int j = 0; j < gridSize.x; j++)
                 {
-                    ret[i, j] = GetCellRow(i).GetAt(j);
+                    ret[i, j] = GetCellRow(i)[j];
                 }
             }
 
@@ -38,24 +38,15 @@ namespace Array2DEditor
     }
 
     [System.Serializable]
-    public class CellRowBool : CellRow<bool> { }
-    [System.Serializable]
-    public class CellRowInt : CellRow<int> { }
-    [System.Serializable]
-    public class CellRowFloat : CellRow<float> { }
-    [System.Serializable]
-    public class CellRowString : CellRow<string> { }
-
-    [System.Serializable]
     public class CellRow<T>
     {
         [SerializeField]
         private T[] row = new T[Consts.defaultGridSize];
 
 
-        public T GetAt(int idx)
+        public T this[int i]
         {
-            return row[idx];
+            get { return row[i]; }
         }
     }
 }

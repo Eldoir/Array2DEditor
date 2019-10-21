@@ -6,13 +6,8 @@ namespace Array2DEditor
     [CustomEditor(typeof(Array2DBool))]
     public class Array2DBoolEditor : Array2DEditor
     {
-        private Vector2 cellSize = new Vector2(16, 16);
-
-
-        protected override Vector2 GetCellSize()
-        {
-            return cellSize;
-        }
+        protected override int CellWidth { get { return 16; } }
+        protected override int CellHeight { get { return 16; } }
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {

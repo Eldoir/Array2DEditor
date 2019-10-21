@@ -1,18 +1,12 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
 namespace Array2DEditor
 {
     [CustomEditor(typeof(Array2DString))]
-    public class PieceDataStringEditor : Array2DEditor
+    public class Array2DStringEditor : Array2DEditor
     {
-        private Vector2 cellSize = new Vector2(96, 16);
-
-
-        protected override Vector2 GetCellSize()
-        {
-            return cellSize;
-        }
+        protected override int CellWidth { get { return 96; } }
+        protected override int CellHeight { get { return 16; } }
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {

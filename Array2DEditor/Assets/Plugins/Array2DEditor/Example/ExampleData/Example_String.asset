@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d3cb9a0036e5b4ea2b5b76e5fa8213, type: 3}
   m_Name: Example_String
   m_EditorClassIdentifier: 
-  gridSize: {x: 3, y: 3}
+  gridSize: {x: 3, y: 2}
   cells:
   - row:
     - test
@@ -21,17 +21,7 @@ MonoBehaviour:
   - row:
     - 
     - 123
-    - 
-    - efefzfefzefzefiuh
-    - 
-    - 
-  - row:
-    - 
-    - 
-    - myvar
-    - 
-    - zef
-    - 
-    - efefzfefzefzefiuh
+    - myVar
+    - test
     - 
     - 

@@ -22,9 +22,19 @@ namespace Array2DEditor
         private bool gridSizeChanged = false;
         private bool wrongSize = false;
 
+        private Vector2 cellSize;
+
         private MethodInfo boldFontMethodInfo = null;
 
-        protected abstract Vector2 GetCellSize(); // In pixels
+        /// <summary>
+        /// In pixels.
+        /// </summary>
+        protected virtual int CellWidth { get { return 16; } }
+        /// <summary>
+        /// In pixels;
+        /// </summary>
+        protected virtual int CellHeight { get { return 16; } }
+
         protected abstract void SetValue(SerializedProperty cell, int i, int j);
         protected virtual void OnEndInspectorGUI() { }
 
@@ -35,6 +45,8 @@ namespace Array2DEditor
             cells = serializedObject.FindProperty("cells");
 
             newGridSize = gridSize.vector2IntValue;
+
+            cellSize = new Vector2(CellWidth, CellHeight);
         }
 
         public override void OnInspectorGUI()
@@ -121,7 +133,7 @@ namespace Array2DEditor
 
             cellPosition.y += 10; // Same as EditorGUILayout.Space(), but in Rect
 
-            cellPosition.size = GetCellSize();
+            cellPosition.size = cellSize;
 
             float startLineX = cellPosition.x;
 
@@ -133,11 +145,11 @@ namespace Array2DEditor
                 for (int j = 0; j < gridSize.vector2IntValue.x; j++)
                 {
                     EditorGUI.PropertyField(cellPosition, row.GetArrayElementAtIndex(j), GUIContent.none);
-                    cellPosition.x += GetCellSize().x + margin;
+                    cellPosition.x += cellSize.x + margin;
                 }
 
-                cellPosition.y += GetCellSize().y + margin;
-                GUILayout.Space(GetCellSize().y + margin); // If we don't do this, the next things we're going to draw after the grid will be drawn on top of the grid
+                cellPosition.y += cellSize.y + margin;
+                GUILayout.Space(cellSize.y + margin); // If we don't do this, the next things we're going to draw after the grid will be drawn on top of the grid
             }
         }
 

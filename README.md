@@ -21,6 +21,20 @@ Then, when you're in your project:
 
 ![Example 1](Screenshots/Example_1.PNG)
 ![Example 2](Screenshots/Example_2.PNG)
+
+## Going further
+
+You can create you own enum files! In order to do that:
+- Duplicate the *Array2DExampleEnum* script and rename it.
+- Open the file and rename the class.
+- Replace any mention of *Enums.ExampleEnum* with your own enum name.
+- In that same file, don't forget to rename *CellRowExampleEnum* as well.
+Then:
+- Duplicate the *Array2DExampleEnumEditor* script and rename it.
+- Open the file and rename the class.
+- Replace the mention of *Enums.ExampleEnum* with your own enum name.
+- You can change the values of *CellWidth* and *CellHeight* as you wish!
+
 ![Example 3](Screenshots/Example_3.PNG)
 
 ## Notes
@@ -30,6 +44,7 @@ Then, when you're in your project:
 ## Authors
 
 * **[Arthur Cousseau](https://www.linkedin.com/in/arthurcousseau/)**
+* Thanks to **[Bugbyte Studio](https://www.linkedin.com/in/bugbytestudio/)** for the idea of using Enums in Array2DEditor.
 
 ## License
 

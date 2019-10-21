@@ -4,15 +4,10 @@ using UnityEditor;
 namespace Array2DEditor
 {
     [CustomEditor(typeof(Array2DFloat))]
-    public class PieceDataFloatEditor : Array2DEditor
+    public class Array2DFloatEditor : Array2DEditor
     {
-        private Vector2 cellSize = new Vector2(32, 16);
-
-
-        protected override Vector2 GetCellSize()
-        {
-            return cellSize;
-        }
+        protected override int CellWidth { get { return 32; } }
+        protected override int CellHeight { get { return 16; } }
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {
