@@ -24,7 +24,7 @@ Then, when you're in your project:
 
 ## Going further
 
-You can create you own enum files! In order to do that:
+You can create your own enum files! In order to do that:
 - Duplicate the *Array2DExampleEnum* script and rename it.
 - Open the file and rename the class with the name of the file.
 - Replace any mention of *Enums.ExampleEnum* with your own enum name.
