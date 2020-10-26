@@ -12,7 +12,7 @@ namespace Array2DEditor
 {
     public abstract class Array2DEditor : Editor
     {
-        private const int margin = 5;
+        private const int marginY = 5;
 
         protected SerializedProperty gridSize;
         protected SerializedProperty cells;
@@ -24,19 +24,25 @@ namespace Array2DEditor
 
         private Vector2 cellSize;
 
+        private Vector2 scrollPos;
+
         private MethodInfo boldFontMethodInfo = null;
 
         /// <summary>
         /// In pixels.
         /// </summary>
         protected virtual int CellWidth => 16;
+
         /// <summary>
         /// In pixels;
         /// </summary>
         protected virtual int CellHeight => 16;
 
         protected abstract void SetValue(SerializedProperty cell, int x, int y);
-        protected virtual void OnEndInspectorGUI() { }
+
+        protected virtual void OnEndInspectorGUI()
+        {
+        }
 
 
         void OnEnable()
@@ -53,12 +59,14 @@ namespace Array2DEditor
         {
             serializedObject.Update(); // Always do this at the beginning of InspectorGUI.
 
-            EditorGUILayout.BeginHorizontal();
+            using (var h = new EditorGUILayout.HorizontalScope())
             {
                 EditorGUI.BeginChangeCheck();
 
                 SetBoldDefaultFont(gridSizeChanged);
-                newGridSize = EditorGUILayout.Vector2IntField(new GUIContent("Grid Size", "NOTE: X is the number of ROWS and Y the number of COLUMNS."), newGridSize);
+                newGridSize = EditorGUILayout.Vector2IntField(
+                    new GUIContent("Grid Size", "NOTE: X is the number of ROWS and Y the number of COLUMNS."),
+                    newGridSize);
                 SetBoldDefaultFont(false);
                 gridSizeChanged = newGridSize != gridSize.vector2IntValue;
                 wrongSize = (newGridSize.x <= 0 || newGridSize.y <= 0);
@@ -69,9 +77,12 @@ namespace Array2DEditor
                 {
                     var operationAllowed = false;
 
-                    if (newGridSize.x < gridSize.vector2IntValue.x || newGridSize.y < gridSize.vector2IntValue.y) // Smaller grid
+                    if (newGridSize.x < gridSize.vector2IntValue.x ||
+                        newGridSize.y < gridSize.vector2IntValue.y) // Smaller grid
                     {
-                        operationAllowed = EditorUtility.DisplayDialog("Are you sure?", "You're about to reduce the width or height of the grid. This may erase some cells. Do you really want this?", "Yes", "No");
+                        operationAllowed = EditorUtility.DisplayDialog("Are you sure?",
+                            "You're about to reduce the width or height of the grid. This may erase some cells. Do you really want this?",
+                            "Yes", "No");
                     }
                     else // Bigger grid
                     {
@@ -85,8 +96,8 @@ namespace Array2DEditor
                 }
 
                 GUI.enabled = true;
+                EditorGUI.EndChangeCheck();
             }
-            EditorGUILayout.EndHorizontal();
 
             if (wrongSize)
             {
@@ -104,7 +115,8 @@ namespace Array2DEditor
 
             OnEndInspectorGUI();
 
-            serializedObject.ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
+            serializedObject
+                .ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
         }
 
         private void InitNewGrid(Vector2 newSize)
@@ -129,28 +141,25 @@ namespace Array2DEditor
 
         private void DisplayGrid(Rect startRect)
         {
-            var cellPosition = startRect;
-
-            cellPosition.y += 10; // Same as EditorGUILayout.Space(), but in Rect
-
-            cellPosition.size = cellSize;
-
-            var startLineX = cellPosition.x;
-
-            for (var x = 0; x < gridSize.vector2IntValue.x; x++)
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
             {
-                var row = GetRowAt(x);
-                cellPosition.x = startLineX; // Get back to the beginning of the line
-
-                for (var y = 0; y < gridSize.vector2IntValue.y; y++)
+                for (var x = 0; x < gridSize.vector2IntValue.x; x++)
                 {
-                    EditorGUI.PropertyField(cellPosition, row.GetArrayElementAtIndex(y), GUIContent.none);
-                    cellPosition.x += cellSize.x + margin;
-                }
+                    var row = GetRowAt(x);
 
-                cellPosition.y += cellSize.y + margin;
-                GUILayout.Space(cellSize.y + margin); // If we don't do this, the next things we're going to draw after the grid will be drawn on top of the grid
+                    using (var h = new EditorGUILayout.HorizontalScope())
+                    {
+                        for (var y = 0; y < gridSize.vector2IntValue.y; y++)
+                        {
+                            EditorGUILayout.PropertyField(row.GetArrayElementAtIndex(y), GUIContent.none,
+                                GUILayout.Width(cellSize.x), GUILayout.Height(cellSize.y));
+                        }
+                    }
+                    
+                    GUILayout.Space(marginY);
+                }
             }
+            EditorGUILayout.EndScrollView();
         }
 
         protected SerializedProperty GetRowAt(int idx)
@@ -161,9 +170,10 @@ namespace Array2DEditor
         private void SetBoldDefaultFont(bool value)
         {
             if (boldFontMethodInfo == null)
-                boldFontMethodInfo = typeof(EditorGUIUtility).GetMethod("SetBoldDefaultFont", BindingFlags.Static | BindingFlags.NonPublic);
+                boldFontMethodInfo = typeof(EditorGUIUtility).GetMethod("SetBoldDefaultFont",
+                    BindingFlags.Static | BindingFlags.NonPublic);
 
-            boldFontMethodInfo.Invoke(null, new[] { value as object });
+            boldFontMethodInfo.Invoke(null, new[] {value as object});
         }
     }
 }
