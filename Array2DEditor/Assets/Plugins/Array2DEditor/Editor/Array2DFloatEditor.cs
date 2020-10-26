@@ -6,8 +6,8 @@ namespace Array2DEditor
     [CustomEditor(typeof(Array2DFloat))]
     public class Array2DFloatEditor : Array2DEditor
     {
-        protected override int CellWidth { get { return 32; } }
-        protected override int CellHeight { get { return 16; } }
+        protected override int CellWidth => 32;
+        protected override int CellHeight => 16;
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {

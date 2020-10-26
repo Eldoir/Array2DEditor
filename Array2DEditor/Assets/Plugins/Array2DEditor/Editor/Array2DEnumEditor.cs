@@ -5,8 +5,8 @@ namespace Array2DEditor
 {
     public class Array2DEnumEditor<T> : Array2DEditor
     {
-        protected override int CellWidth { get { return 70; } }
-        protected override int CellHeight { get { return 16; } }
+        protected override int CellWidth => 70;
+        protected override int CellHeight => 16;
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {

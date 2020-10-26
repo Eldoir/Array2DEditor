@@ -6,8 +6,8 @@ namespace Array2DEditor
     [CustomEditor(typeof(Array2DBool))]
     public class Array2DBoolEditor : Array2DEditor
     {
-        protected override int CellWidth { get { return 16; } }
-        protected override int CellHeight { get { return 16; } }
+        protected override int CellWidth => 16;
+        protected override int CellHeight => 16;
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {
@@ -36,11 +36,11 @@ namespace Array2DEditor
         {
             bool[,] cells = (target as Array2DBool).GetCells();
 
-            int count = 0;
+            var count = 0;
 
-            for (int i = 0; i < gridSize.vector2IntValue.y; i++)
+            for (var i = 0; i < gridSize.vector2IntValue.y; i++)
             {
-                for (int j = 0; j < gridSize.vector2IntValue.x; j++)
+                for (var j = 0; j < gridSize.vector2IntValue.x; j++)
                 {
                     if (cells[i, j]) count++;
                 }

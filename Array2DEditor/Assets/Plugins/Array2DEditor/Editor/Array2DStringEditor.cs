@@ -5,8 +5,8 @@ namespace Array2DEditor
     [CustomEditor(typeof(Array2DString))]
     public class Array2DStringEditor : Array2DEditor
     {
-        protected override int CellWidth { get { return 96; } }
-        protected override int CellHeight { get { return 16; } }
+        protected override int CellWidth => 96;
+        protected override int CellHeight => 16;
 
         protected override void SetValue(SerializedProperty cell, int i, int j)
         {

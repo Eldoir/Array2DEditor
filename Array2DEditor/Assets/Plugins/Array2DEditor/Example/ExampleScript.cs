@@ -21,15 +21,15 @@ public class ExampleScript : MonoBehaviour
 
         bool[,] cells = array2DBool.GetCells();
 
-        GameObject piece = new GameObject("Piece");
+        var piece = new GameObject("Piece");
 
-        for(int i = 0; i < array2DBool.GridSize.x; i++)
+        for(var i = 0; i < array2DBool.GridSize.x; i++)
         {
-            for(int j = 0; j < array2DBool.GridSize.y; j++)
+            for(var j = 0; j < array2DBool.GridSize.y; j++)
             {
                 if (cells[i, j])
                 {
-                    GameObject prefabGO = Instantiate(prefabToInstantiate, new Vector3(i, 0, j), Quaternion.identity, piece.transform);
+                    var prefabGO = Instantiate(prefabToInstantiate, new Vector3(i, 0, j), Quaternion.identity, piece.transform);
                     prefabGO.name = "(" + i + ", " + j + ")";
                 }
             }

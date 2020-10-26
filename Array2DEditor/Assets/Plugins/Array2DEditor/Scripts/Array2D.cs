@@ -15,7 +15,7 @@ namespace Array2DEditor
         protected Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
 
 
-        public Vector2Int GridSize { get { return gridSize; } }
+        public Vector2Int GridSize => gridSize;
 
 
         protected abstract CellRow<T> GetCellRow(int idx);
@@ -25,9 +25,9 @@ namespace Array2DEditor
         {
             T[,] ret = new T[gridSize.y, gridSize.x];
 
-            for (int i = 0; i < gridSize.y; i++)
+            for (var i = 0; i < gridSize.y; i++)
             {
-                for (int j = 0; j < gridSize.x; j++)
+                for (var j = 0; j < gridSize.x; j++)
                 {
                     ret[i, j] = GetCellRow(i)[j];
                 }
@@ -44,9 +44,6 @@ namespace Array2DEditor
         private T[] row = new T[Consts.defaultGridSize];
 
 
-        public T this[int i]
-        {
-            get { return row[i]; }
-        }
+        public T this[int i] => row[i];
     }
 }
