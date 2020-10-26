@@ -1,10 +1,13 @@
-﻿// This is just an example of how you could deal with your enums in your entire project.
-public class Enums
+﻿namespace Array2DEditor
 {
-    public enum ExampleEnum
+    // This is just an example of how you could deal with your enums in your entire project.
+    public class Enums
     {
-        Empty,
-        Moving,
-        Normal
-    };
+        public enum ExampleEnum
+        {
+            Empty,
+            Moving,
+            Normal
+        };
+    }
 }
