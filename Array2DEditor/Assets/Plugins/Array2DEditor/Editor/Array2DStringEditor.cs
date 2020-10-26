@@ -8,15 +8,15 @@ namespace Array2DEditor
         protected override int CellWidth => 96;
         protected override int CellHeight => 16;
 
-        protected override void SetValue(SerializedProperty cell, int i, int j)
+        protected override void SetValue(SerializedProperty cell, int x, int y)
         {
             string[,] previousCells = (target as Array2DString).GetCells();
 
             cell.stringValue = default(string);
 
-            if (i < gridSize.vector2IntValue.y && j < gridSize.vector2IntValue.x)
+            if (x < gridSize.vector2IntValue.x && y < gridSize.vector2IntValue.y)
             {
-                cell.stringValue = previousCells[i, j];
+                cell.stringValue = previousCells[x, y];
             }
         }
     }

@@ -23,13 +23,13 @@ namespace Array2DEditor
 
         public T[,] GetCells()
         {
-            T[,] ret = new T[gridSize.y, gridSize.x];
+            T[,] ret = new T[gridSize.x, gridSize.y];
 
-            for (var i = 0; i < gridSize.y; i++)
+            for (var x = 0; x < gridSize.x; x++)
             {
-                for (var j = 0; j < gridSize.x; j++)
+                for (var y = 0; y < gridSize.y; y++)
                 {
-                    ret[i, j] = GetCellRow(i)[j];
+                    ret[x, y] = GetCellRow(x)[y];
                 }
             }
 

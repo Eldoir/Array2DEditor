@@ -23,14 +23,14 @@ public class ExampleScript : MonoBehaviour
 
         var piece = new GameObject("Piece");
 
-        for(var i = 0; i < array2DBool.GridSize.x; i++)
+        for(var x = 0; x < array2DBool.GridSize.x; x++)
         {
-            for(var j = 0; j < array2DBool.GridSize.y; j++)
+            for(var y = 0; y < array2DBool.GridSize.y; y++)
             {
-                if (cells[i, j])
+                if (cells[x, y])
                 {
-                    var prefabGO = Instantiate(prefabToInstantiate, new Vector3(i, 0, j), Quaternion.identity, piece.transform);
-                    prefabGO.name = "(" + i + ", " + j + ")";
+                    var prefabGO = Instantiate(prefabToInstantiate, new Vector3(y, 0, x), Quaternion.identity, piece.transform);
+                    prefabGO.name = "(" + y + ", " + x + ")";
                 }
             }
         }

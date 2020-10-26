@@ -9,15 +9,15 @@ namespace Array2DEditor
         protected override int CellWidth => 32;
         protected override int CellHeight => 16;
 
-        protected override void SetValue(SerializedProperty cell, int i, int j)
+        protected override void SetValue(SerializedProperty cell, int x, int y)
         {
             int[,] previousCells = (target as Array2DInt).GetCells();
 
             cell.intValue = default(int);
 
-            if (i < gridSize.vector2IntValue.y && j < gridSize.vector2IntValue.x)
+            if (x < gridSize.vector2IntValue.x && y < gridSize.vector2IntValue.y)
             {
-                cell.intValue = previousCells[i, j];
+                cell.intValue = previousCells[x, y];
             }
         }
 
@@ -36,13 +36,13 @@ namespace Array2DEditor
         {
             int[,] cells = (target as Array2DInt).GetCells();
 
-            int count = 0;
+            var count = 0;
 
-            for (int i = 0; i < gridSize.vector2IntValue.y; i++)
+            for (var x = 0; x < gridSize.vector2IntValue.x; x++)
             {
-                for (int j = 0; j < gridSize.vector2IntValue.x; j++)
+                for (var y = 0; y < gridSize.vector2IntValue.y; y++)
                 {
-                    count += cells[i, j];
+                    count += cells[x, y];
                 }
             }
 

@@ -35,7 +35,7 @@ namespace Array2DEditor
         /// </summary>
         protected virtual int CellHeight => 16;
 
-        protected abstract void SetValue(SerializedProperty cell, int i, int j);
+        protected abstract void SetValue(SerializedProperty cell, int x, int y);
         protected virtual void OnEndInspectorGUI() { }
 
 
@@ -58,7 +58,7 @@ namespace Array2DEditor
                 EditorGUI.BeginChangeCheck();
 
                 SetBoldDefaultFont(gridSizeChanged);
-                newGridSize = EditorGUILayout.Vector2IntField("Grid Size", newGridSize);
+                newGridSize = EditorGUILayout.Vector2IntField(new GUIContent("Grid Size", "NOTE: X is the number of ROWS and Y the number of COLUMNS."), newGridSize);
                 SetBoldDefaultFont(false);
                 gridSizeChanged = newGridSize != gridSize.vector2IntValue;
                 wrongSize = (newGridSize.x <= 0 || newGridSize.y <= 0);
@@ -111,16 +111,16 @@ namespace Array2DEditor
         {
             cells.ClearArray();
 
-            for (var i = 0; i < newSize.y; i++)
+            for (var x = 0; x < newSize.x; x++)
             {
-                cells.InsertArrayElementAtIndex(i);
-                var row = GetRowAt(i);
+                cells.InsertArrayElementAtIndex(x);
+                var row = GetRowAt(x);
 
-                for (var j = 0; j < newSize.x; j++)
+                for (var y = 0; y < newSize.y; y++)
                 {
-                    row.InsertArrayElementAtIndex(j);
+                    row.InsertArrayElementAtIndex(y);
 
-                    SetValue(row.GetArrayElementAtIndex(j), i, j);
+                    SetValue(row.GetArrayElementAtIndex(y), x, y);
                 }
             }
 
@@ -137,14 +137,14 @@ namespace Array2DEditor
 
             var startLineX = cellPosition.x;
 
-            for (var i = 0; i < gridSize.vector2IntValue.y; i++)
+            for (var x = 0; x < gridSize.vector2IntValue.x; x++)
             {
-                var row = GetRowAt(i);
+                var row = GetRowAt(x);
                 cellPosition.x = startLineX; // Get back to the beginning of the line
 
-                for (var j = 0; j < gridSize.vector2IntValue.x; j++)
+                for (var y = 0; y < gridSize.vector2IntValue.y; y++)
                 {
-                    EditorGUI.PropertyField(cellPosition, row.GetArrayElementAtIndex(j), GUIContent.none);
+                    EditorGUI.PropertyField(cellPosition, row.GetArrayElementAtIndex(y), GUIContent.none);
                     cellPosition.x += cellSize.x + margin;
                 }
 
