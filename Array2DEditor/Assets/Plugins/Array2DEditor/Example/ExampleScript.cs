@@ -29,8 +29,8 @@ public class ExampleScript : MonoBehaviour
             {
                 if (cells[x, y])
                 {
-                    var prefabGO = Instantiate(prefabToInstantiate, new Vector3(y, 0, x), Quaternion.identity, piece.transform);
-                    prefabGO.name = "(" + y + ", " + x + ")";
+                    var prefabGO = Instantiate(prefabToInstantiate, new Vector3(x, 0, y), Quaternion.identity, piece.transform);
+                    prefabGO.name = "(" + x + ", " + y + ")";
                 }
             }
         }
