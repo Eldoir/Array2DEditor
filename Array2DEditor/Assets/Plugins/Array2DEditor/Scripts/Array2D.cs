@@ -1,5 +1,5 @@
 /*
- * Arthur Cousseau, 2019
+ * Arthur Cousseau, 2020
  * https://www.linkedin.com/in/arthurcousseau/
  * Please share this if you enjoy it! :)
 */
