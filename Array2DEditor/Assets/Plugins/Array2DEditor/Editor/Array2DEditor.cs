@@ -113,7 +113,7 @@ namespace Array2DEditor
                 .ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
         }
 
-        private void InitNewGrid(Vector2 newSize)
+        private void InitNewGrid(Vector2Int newSize)
         {
             cells.ClearArray();
 
