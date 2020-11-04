@@ -33,7 +33,7 @@ namespace Array2DEditor
         protected virtual int CellWidth => 16;
 
         /// <summary>
-        /// In pixels;
+        /// In pixels.
         /// </summary>
         protected virtual int CellHeight => 16;
 
@@ -109,8 +109,7 @@ namespace Array2DEditor
 
             OnEndInspectorGUI();
 
-            serializedObject
-                .ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
+            serializedObject.ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
         }
 
         private void InitNewGrid(Vector2Int newSize)
@@ -149,7 +148,7 @@ namespace Array2DEditor
                                 GUILayout.Width(cellSize.x), GUILayout.Height(cellSize.y));
                         }
                     }
-                    
+
                     GUILayout.Space(marginY);
                 }
             }
@@ -166,7 +165,7 @@ namespace Array2DEditor
             if (boldFontMethodInfo == null)
                 boldFontMethodInfo = typeof(EditorGUIUtility).GetMethod("SetBoldDefaultFont",
                     BindingFlags.Static | BindingFlags.NonPublic);
-
+            
             boldFontMethodInfo.Invoke(null, new[] {value as object});
         }
     }
