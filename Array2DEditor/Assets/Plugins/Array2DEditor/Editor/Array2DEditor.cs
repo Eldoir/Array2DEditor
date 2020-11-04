@@ -17,7 +17,6 @@ namespace Array2DEditor
         protected SerializedProperty gridSize;
         protected SerializedProperty cells;
 
-        private Rect lastRect;
         protected Vector2Int newGridSize;
         private bool gridSizeChanged = false;
         private bool wrongSize = false;
@@ -106,12 +105,7 @@ namespace Array2DEditor
 
             EditorGUILayout.Space();
 
-            if (Event.current.type == EventType.Repaint)
-            {
-                lastRect = GUILayoutUtility.GetLastRect();
-            }
-
-            DisplayGrid(lastRect);
+            DisplayGrid();
 
             OnEndInspectorGUI();
 
@@ -119,7 +113,7 @@ namespace Array2DEditor
                 .ApplyModifiedProperties(); // Apply changes to all serializedProperties - always do this at the end of OnInspectorGUI.
         }
 
-        private void InitNewGrid(Vector2 newSize)
+        private void InitNewGrid(Vector2Int newSize)
         {
             cells.ClearArray();
 
@@ -139,7 +133,7 @@ namespace Array2DEditor
             gridSize.vector2IntValue = newGridSize;
         }
 
-        private void DisplayGrid(Rect startRect)
+        private void DisplayGrid()
         {
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
             {
