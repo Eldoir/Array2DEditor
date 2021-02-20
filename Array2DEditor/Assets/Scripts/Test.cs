@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using Array2DEditor;
 
 public class Test : MonoBehaviour
 {
     [SerializeField]
-    private TestArray floorplan;
+    private TestArrayInt floorplan;
 
     [SerializeField]
-    private TestArray doorPlacement;
+    private TestArrayInt doorPlacement;
 
     [SerializeField]
-    private TestArray decorNodes;
-    
-    [SerializeField]
-    private List<int> list;
+    private TestArrayInt decorNodes;
 }
