@@ -1,10 +1,13 @@
-﻿using UnityEditor;
+﻿using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 
 namespace Array2DEditor
 {
     public abstract class AbstractPropertyDrawer : PropertyDrawer
     {
+        private MethodInfo boldFontMethodInfo = null;
+        
         protected void TryFindPropertyRelative(SerializedProperty parent, string relativePropertyPath, out SerializedProperty prop)
         {
             prop = parent.FindPropertyRelative(relativePropertyPath);
@@ -46,6 +49,15 @@ namespace Array2DEditor
 
             Debug.LogError("InspectorWindow couldn't be found.");
             return false;
+        }
+        
+        protected void SetBoldDefaultFont(bool bold)
+        {
+            if (boldFontMethodInfo == null)
+                boldFontMethodInfo = typeof(EditorGUIUtility).GetMethod("SetBoldDefaultFont",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+            
+            boldFontMethodInfo?.Invoke(null, new[] { bold as object });
         }
 
         #region Debug

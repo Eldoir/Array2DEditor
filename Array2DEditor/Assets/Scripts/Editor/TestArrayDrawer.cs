@@ -1,10 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEditor;
 
 namespace Array2DEditor
 {
-    [CustomPropertyDrawer(typeof(TestArrayInt))]
-    public class TestArrayDrawer : AbstractPropertyDrawer
+    public abstract class TestArrayDrawer : AbstractPropertyDrawer
     {
         private const float paddingLeft = 4f;
         private const float foldoutWidth = 14f;
@@ -13,7 +12,8 @@ namespace Array2DEditor
         private const float verticalScrollBarWidth = 12f;
 
         private static float FieldWidth => EditorGUIUtility.currentViewWidth - EditorGUIUtility.labelWidth
-                                           - paddingLeft - paddingRight - foldoutWidth;
+                                                                             - paddingLeft - paddingRight -
+                                                                             foldoutWidth;
 
         private static float LineHeight => EditorGUIUtility.singleLineHeight;
         private const float lineMargin = 5f;
@@ -25,14 +25,14 @@ namespace Array2DEditor
         private const float spacingBetweenSizeFieldAndApplyButton = 5f;
         private const float applyButtonWidth = 50f;
 
-        private SerializedProperty gridSizeProperty;
+        protected SerializedProperty gridSizeProperty;
         private SerializedProperty cellSizeProperty;
         private SerializedProperty cellsProperty;
 
-        protected Vector2Int newGridSize;
+        private Vector2Int newGridSize;
         private bool gridSizeChanged = false;
         private bool wrongGridSize = false;
-        
+
         private bool initialized = false;
 
         #region SerializedProperty getters
@@ -48,9 +48,37 @@ namespace Array2DEditor
 
         #endregion
 
+        private SerializedProperty property;
+
+        static class Texts
+        {
+            public static readonly GUIContent gridSizeContent = new GUIContent("Grid Size",
+                "NOTE: X is the number of ROWS and Y the number of COLUMNS.");
+
+            public const string apply = "Apply";
+            public const string wrongGridSize = "Wrong grid size.";
+            public static readonly GUIContent changeCellSize = new GUIContent("Change Cell Size");
+
+            public static class GridSizeDialog
+            {
+                public const string title = "Are you sure?";
+
+                public const string message =
+                    "You're about to reduce the width or height of the grid. This may erase some cells. Do you really want this?";
+
+                public const string ok = "Yes";
+                public const string cancel = "No";
+            }
+        }
+        
+        protected abstract void SetValue(SerializedProperty cell, int x, int y);
+        protected Object target => property.serializedObject.targetObject;
+
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            this.property = property;
+            
             // Initialize properties
             GetGridSizeProperty(property);
             GetCellSizeProperty(property);
@@ -94,8 +122,10 @@ namespace Array2DEditor
                     width = EditorGUIUtility.labelWidth,
                     height = LineHeight
                 };
-                EditorGUI.LabelField(gridSizeLabelRect,
-                    new GUIContent("Grid Size", "NOTE: X is the number of ROWS and Y the number of COLUMNS."));
+                
+                SetBoldDefaultFont(gridSizeChanged);
+                
+                EditorGUI.LabelField(gridSizeLabelRect, Texts.gridSizeContent);
 
                 // Display gridSize field
                 var gridSizeFieldRect = new Rect(gridSizeLabelRect);
@@ -103,6 +133,8 @@ namespace Array2DEditor
                 gridSizeFieldRect.width = FieldWidth - spacingBetweenSizeFieldAndApplyButton - applyButtonWidth -
                                           (VerticalScrollBarIsVisible() ? verticalScrollBarWidth : 0f);
                 newGridSize = EditorGUI.Vector2IntField(gridSizeFieldRect, GUIContent.none, newGridSize);
+                
+                SetBoldDefaultFont(false);
 
                 // Display apply button
                 var applyButtonRect = new Rect(gridSizeFieldRect);
@@ -114,16 +146,15 @@ namespace Array2DEditor
 
                 GUI.enabled = gridSizeChanged && !wrongGridSize;
 
-                if (GUI.Button(applyButtonRect, "Apply", EditorStyles.miniButton))
+                if (GUI.Button(applyButtonRect, Texts.apply, EditorStyles.miniButton))
                 {
                     var operationAllowed = false;
 
                     if (newGridSize.x < gridSizeProperty.vector2IntValue.x ||
                         newGridSize.y < gridSizeProperty.vector2IntValue.y) // Smaller grid
                     {
-                        operationAllowed = EditorUtility.DisplayDialog("Are you sure?",
-                            "You're about to reduce the width or height of the grid. This may erase some cells. Do you really want this?",
-                            "Yes", "No");
+                        operationAllowed = EditorUtility.DisplayDialog(Texts.GridSizeDialog.title, Texts.GridSizeDialog.message,
+                            Texts.GridSizeDialog.ok, Texts.GridSizeDialog.cancel);
                     }
                     else // Bigger grid
                     {
@@ -145,7 +176,7 @@ namespace Array2DEditor
                     {
                         height = LineHeight * 2
                     };
-                    EditorGUI.HelpBox(helpBoxRect, "Wrong grid size.", MessageType.Error);
+                    EditorGUI.HelpBox(helpBoxRect, Texts.wrongGridSize, MessageType.Error);
                     position.y += LineHeight;
                 }
 
@@ -159,7 +190,7 @@ namespace Array2DEditor
         private void ShowHeaderContextMenu(Rect position)
         {
             var menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Change Cell Size"), false, OnChangeCellSize);
+            menu.AddItem(Texts.changeCellSize, false, OnChangeCellSize);
             menu.DropDown(position);
         }
 
@@ -183,6 +214,7 @@ namespace Array2DEditor
                 {
                     height += 2 * LineHeight + lineMargin;
                 }
+
                 height += gridSizeProperty.vector2IntValue.y * (cellSizeProperty.vector2IntValue.y + cellSpacing.y) -
                           cellSpacing.y; // Cells lines
                 height += lastLineMargin;
@@ -193,7 +225,7 @@ namespace Array2DEditor
 
         private void InitNewGrid(Vector2Int newSize)
         {
-            /*cellsProperty.ClearArray();
+            cellsProperty.ClearArray();
 
             for (var x = 0; x < newSize.x; x++)
             {
@@ -206,35 +238,14 @@ namespace Array2DEditor
 
                     SetValue(row.GetArrayElementAtIndex(y), x, y);
                 }
-            }*/
+            }
 
             gridSizeProperty.vector2IntValue = newGridSize;
         }
 
-        protected SerializedProperty GetRowAt(int idx)
+        private SerializedProperty GetRowAt(int idx)
         {
             return cellsProperty.GetArrayElementAtIndex(idx).FindPropertyRelative("row");
-        }
-
-        protected virtual void SetValue(SerializedProperty cell, int x, int y)
-        {
-            var previousCells = GetCells();
-
-            cell.intValue = default;
-
-            if (x < gridSizeProperty.vector2IntValue.x && y < gridSizeProperty.vector2IntValue.y)
-            {
-                cell.intValue = previousCells[x, y];
-            }
-        }
-
-        private int[,] GetCells()
-        {
-            var result = new int[cellsProperty.arraySize, cellsProperty.arraySize];
-
-            // :TODO:
-
-            return result;
         }
 
         private void DisplayGrid(Rect position)
