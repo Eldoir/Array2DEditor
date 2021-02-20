@@ -5,10 +5,10 @@ public class ExampleScript : MonoBehaviour
 {
 
     [SerializeField]
-    private Array2DBool array2DBool;
+    private Array2DBool array2DBool = null;
 
     [SerializeField]
-    private GameObject prefabToInstantiate;
+    private GameObject prefabToInstantiate = null;
 
 
 	void Start()
