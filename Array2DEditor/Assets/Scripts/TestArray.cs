@@ -7,13 +7,13 @@ namespace Array2DEditor
     {
         [SerializeField]
         private Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
-
-        #if UNITY_EDITOR
+        
+        /// <summary>
+        /// NOTE: Only used to display the cells in the Editor. This won't affect the build.
+        /// </summary>
         [SerializeField]
-        [Tooltip("Only used to display the cells in the Editor.")]
         private Vector2Int cellSize = new Vector2Int(32, 16);
-        #endif
-    
+
         protected abstract CellRow<T> GetCellRow(int idx);
 
 
