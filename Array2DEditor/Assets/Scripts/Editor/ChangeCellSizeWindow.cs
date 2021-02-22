@@ -51,10 +51,11 @@ namespace Array2DEditor
             }
 
             GUI.enabled = true;
-
+            
             // We're doing this in OnGUI() since the Update() function doesn't seem to get called when we show the window with ShowModalUtility().
-            if ((Event.current.type == EventType.KeyDown || Event.current.type == EventType.KeyUp) &&
-                (Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter))
+            var ev = Event.current;
+            if ((ev.type == EventType.KeyDown || ev.type == EventType.KeyUp) &&
+                (ev.keyCode == KeyCode.Return || ev.keyCode == KeyCode.KeypadEnter))
             {
                 Apply();
             }
