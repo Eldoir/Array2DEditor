@@ -9,9 +9,9 @@ namespace Array2DEditor
         private TestArrayInt floorplan;
 
         [SerializeField]
-        private TestArrayInt doorPlacement;
+        private TestArrayEnum doorPlacement;
 
         [SerializeField]
-        private TestArrayInt decorNodes;
+        private TestArrayBool decorNodes;
     }
 }

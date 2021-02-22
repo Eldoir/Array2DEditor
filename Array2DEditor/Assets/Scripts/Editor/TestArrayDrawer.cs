@@ -215,8 +215,7 @@ namespace Array2DEditor
                     height += 2 * LineHeight + lineMargin;
                 }
 
-                height += gridSizeProperty.vector2IntValue.y * (cellSizeProperty.vector2IntValue.y + cellSpacing.y) -
-                          cellSpacing.y; // Cells lines
+                height += gridSizeProperty.vector2IntValue.y * (cellSizeProperty.vector2IntValue.y + cellSpacing.y) - cellSpacing.y; // Cells lines
                 height += lastLineMargin;
             }
 
@@ -243,11 +242,6 @@ namespace Array2DEditor
             gridSizeProperty.vector2IntValue = newGridSize;
         }
 
-        private SerializedProperty GetRowAt(int idx)
-        {
-            return cellsProperty.GetArrayElementAtIndex(idx).FindPropertyRelative("row");
-        }
-
         private void DisplayGrid(Rect position)
         {
             var cellRect = new Rect(position.x, position.y, cellSizeProperty.vector2IntValue.x,
@@ -255,6 +249,8 @@ namespace Array2DEditor
 
             for (var x = 0; x < gridSizeProperty.vector2IntValue.x; x++)
             {
+                var row = GetRowAt(x);
+                
                 for (var y = 0; y < gridSizeProperty.vector2IntValue.y; y++)
                 {
                     var pos = new Rect(cellRect)
@@ -262,10 +258,14 @@ namespace Array2DEditor
                         x = cellRect.x + (cellRect.width + cellSpacing.x) * x,
                         y = cellRect.y + (cellRect.height + cellSpacing.y) * y
                     };
-
-                    EditorGUI.IntField(pos, 0);
+                    EditorGUI.PropertyField(pos, row.GetArrayElementAtIndex(y), GUIContent.none);
                 }
             }
+        }
+        
+        private SerializedProperty GetRowAt(int idx)
+        {
+            return cellsProperty.GetArrayElementAtIndex(idx).FindPropertyRelative("row");
         }
     }
 }
