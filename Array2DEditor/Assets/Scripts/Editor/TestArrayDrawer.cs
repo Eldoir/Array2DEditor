@@ -51,8 +51,7 @@ namespace Array2DEditor
 
         static class Texts
         {
-            public static readonly GUIContent gridSizeContent = new GUIContent("Grid Size",
-                "NOTE: X is the number of ROWS and Y the number of COLUMNS.");
+            public static readonly GUIContent gridSizeContent = new GUIContent("Grid Size");
 
             public const string apply = "Apply";
             public const string wrongGridSize = "Wrong grid size.";
@@ -237,23 +236,23 @@ namespace Array2DEditor
 
             cellsProperty.ClearArray();
 
-            for (var x = 0; x < newSize.x; x++)
+            for (var y = 0; y < newSize.y; y++)
             {
-                cellsProperty.InsertArrayElementAtIndex(x);
-                var row = GetRowAt(x);
+                cellsProperty.InsertArrayElementAtIndex(y);
+                var row = GetRowAt(y);
 
-                for (var y = 0; y < newSize.y; y++)
+                for (var x = 0; x < newSize.x; x++)
                 {
-                    row.InsertArrayElementAtIndex(y);
+                    row.InsertArrayElementAtIndex(x);
 
-                    var cell = row.GetArrayElementAtIndex(y);
+                    var cell = row.GetArrayElementAtIndex(x);
 
                     SetValue(cell, GetDefaultCellValue());
 
                     // The grid just got bigger, we try to retrieve the previous value of the cell
                     if (restorePreviousValues && x < gridSizeProperty.vector2IntValue.x && y < gridSizeProperty.vector2IntValue.y)
                     {
-                        SetValue(cell, previousGrid[x][y]);
+                        SetValue(cell, previousGrid[y][x]);
                     }
                 }
             }
@@ -265,13 +264,15 @@ namespace Array2DEditor
 
         private object[][] GetGridValues()
         {
-            var arr = new object[gridSizeProperty.vector2IntValue.x][];
-            for (var x = 0; x < gridSizeProperty.vector2IntValue.x; x++)
+            var arr = new object[gridSizeProperty.vector2IntValue.y][];
+            
+            for (var y = 0; y < gridSizeProperty.vector2IntValue.y; y++)
             {
-                arr[x] = new object[gridSizeProperty.vector2IntValue.y];
-                for (var y = 0; y < gridSizeProperty.vector2IntValue.y; y++)
+                arr[y] = new object[gridSizeProperty.vector2IntValue.x];
+                
+                for (var x = 0; x < gridSizeProperty.vector2IntValue.x; x++)
                 {
-                    arr[x][y] = GetCellValue(GetRowAt(x).GetArrayElementAtIndex(y));
+                    arr[y][x] = GetCellValue(GetRowAt(y).GetArrayElementAtIndex(x));
                 }
             }
 
@@ -283,19 +284,16 @@ namespace Array2DEditor
             var cellRect = new Rect(position.x, position.y, cellSizeProperty.vector2IntValue.x,
                 cellSizeProperty.vector2IntValue.y);
 
-            for (var x = 0; x < gridSizeProperty.vector2IntValue.x; x++)
+            for (var y = 0; y < gridSizeProperty.vector2IntValue.y; y++)
             {
-                var row = GetRowAt(x);
-                
-                for (var y = 0; y < gridSizeProperty.vector2IntValue.y; y++)
+                for (var x = 0; x < gridSizeProperty.vector2IntValue.x; x++)
                 {
                     var pos = new Rect(cellRect)
                     {
-                        // :NOTE: x is the number of ROWS and y of COLUMNS so we have to take care of this here
-                        x = cellRect.x + (cellRect.width + cellSpacing.x) * y,
-                        y = cellRect.y + (cellRect.height + cellSpacing.y) * x
+                        x = cellRect.x + (cellRect.width + cellSpacing.x) * x,
+                        y = cellRect.y + (cellRect.height + cellSpacing.y) * y
                     };
-                    EditorGUI.PropertyField(pos, row.GetArrayElementAtIndex(y), GUIContent.none);
+                    EditorGUI.PropertyField(pos, GetRowAt(y).GetArrayElementAtIndex(x), GUIContent.none);
                 }
             }
         }
