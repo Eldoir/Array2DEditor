@@ -291,8 +291,9 @@ namespace Array2DEditor
                 {
                     var pos = new Rect(cellRect)
                     {
-                        x = cellRect.x + (cellRect.width + cellSpacing.x) * x,
-                        y = cellRect.y + (cellRect.height + cellSpacing.y) * y
+                        // :NOTE: x is the number of ROWS and y of COLUMNS so we have to take care of this here
+                        x = cellRect.x + (cellRect.width + cellSpacing.x) * y,
+                        y = cellRect.y + (cellRect.height + cellSpacing.y) * x
                     };
                     EditorGUI.PropertyField(pos, row.GetArrayElementAtIndex(y), GUIContent.none);
                 }
