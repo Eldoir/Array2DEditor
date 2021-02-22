@@ -25,7 +25,7 @@ namespace Array2DEditor
         private const float spacingBetweenSizeFieldAndApplyButton = 5f;
         private const float applyButtonWidth = 50f;
 
-        protected SerializedProperty gridSizeProperty;
+        private SerializedProperty gridSizeProperty;
         private SerializedProperty cellSizeProperty;
         private SerializedProperty cellsProperty;
 
@@ -48,8 +48,6 @@ namespace Array2DEditor
 
         #endregion
 
-        private SerializedProperty property;
-
         static class Texts
         {
             public static readonly GUIContent gridSizeContent = new GUIContent("Grid Size",
@@ -70,15 +68,14 @@ namespace Array2DEditor
                 public const string cancel = "No";
             }
         }
-        
-        protected abstract void SetValue(SerializedProperty cell, int x, int y);
-        protected Object target => property.serializedObject.targetObject;
+
+        protected abstract object GetDefaultCellValue();
+        protected abstract object GetCellValue(SerializedProperty cell);
+        protected abstract void SetValue(SerializedProperty cell, object obj);
 
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            this.property = property;
-            
             // Initialize properties
             GetGridSizeProperty(property);
             GetCellSizeProperty(property);
@@ -224,6 +221,8 @@ namespace Array2DEditor
 
         private void InitNewGrid(Vector2Int newSize)
         {
+            var previousGrid = GetGridValues();
+            
             cellsProperty.ClearArray();
 
             for (var x = 0; x < newSize.x; x++)
@@ -235,11 +234,34 @@ namespace Array2DEditor
                 {
                     row.InsertArrayElementAtIndex(y);
 
-                    SetValue(row.GetArrayElementAtIndex(y), x, y);
+                    var cell = row.GetArrayElementAtIndex(y);
+
+                    SetValue(cell, GetDefaultCellValue());
+
+                    // The grid just got bigger, we try to retrieve the previous value of the cell
+                    if (x < gridSizeProperty.vector2IntValue.x && y < gridSizeProperty.vector2IntValue.y)
+                    {
+                        SetValue(cell, previousGrid[x][y]);
+                    }
                 }
             }
 
             gridSizeProperty.vector2IntValue = newGridSize;
+        }
+
+        private object[][] GetGridValues()
+        {
+            var arr = new object[gridSizeProperty.vector2IntValue.x][];
+            for (var x = 0; x < gridSizeProperty.vector2IntValue.x; x++)
+            {
+                arr[x] = new object[gridSizeProperty.vector2IntValue.y];
+                for (var y = 0; y < gridSizeProperty.vector2IntValue.y; y++)
+                {
+                    arr[x][y] = GetCellValue(GetRowAt(x).GetArrayElementAtIndex(y));
+                }
+            }
+
+            return arr;
         }
 
         private void DisplayGrid(Rect position)

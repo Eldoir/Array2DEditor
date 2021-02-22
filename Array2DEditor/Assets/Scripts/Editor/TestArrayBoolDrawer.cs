@@ -5,16 +5,13 @@ namespace Array2DEditor
     [CustomPropertyDrawer(typeof(TestArrayBool))]
     public class TestArrayBoolDrawer : TestArrayDrawer
     {
-        protected override void SetValue(SerializedProperty cell, int x, int y)
+        protected override object GetDefaultCellValue() => false;
+
+        protected override object GetCellValue(SerializedProperty cell) => cell.boolValue;
+
+        protected override void SetValue(SerializedProperty cell, object obj)
         {
-            /*var previousCells = (target as TestArrayInt).GetCells();
-
-            cell.intValue = default;
-
-            if (x < gridSizeProperty.vector2IntValue.x && y < gridSizeProperty.vector2IntValue.y)
-            {
-                cell.intValue = previousCells[x, y];
-            }*/
+            cell.boolValue = (bool) obj;
         }
     }
 }

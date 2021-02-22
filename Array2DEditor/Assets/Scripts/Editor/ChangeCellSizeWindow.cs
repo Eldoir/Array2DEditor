@@ -11,6 +11,7 @@ namespace Array2DEditor
         private const string cellSizeControlName = "CellSize";
         private static bool cellSizeControlFocused;
     
+        
         public static void ShowWindow(SerializedProperty cellSizeProperty)
         {
             ChangeCellSizeWindow.cellSizeProperty = cellSizeProperty;
