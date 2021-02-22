@@ -238,8 +238,9 @@ namespace Array2DEditor
 
             for (var y = 0; y < newSize.y; y++)
             {
-                cellsProperty.InsertArrayElementAtIndex(y);
-                var row = GetRowAt(y);
+                cellsProperty.InsertArrayElementAtIndex(y); // Insert a new row
+                var row = GetRowAt(y); // Get the new row
+                row.ClearArray(); // Clear it
 
                 for (var x = 0; x < newSize.x; x++)
                 {
