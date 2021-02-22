@@ -6,7 +6,7 @@ namespace Array2DEditor
     public abstract class TestArray<T>
     {
         [SerializeField]
-        private Vector2Int gridSize = Vector2Int.one;
+        private Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
 
         #if UNITY_EDITOR
         [SerializeField]
