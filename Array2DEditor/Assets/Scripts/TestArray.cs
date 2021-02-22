@@ -25,11 +25,16 @@ namespace Array2DEditor
             {
                 for (var y = 0; y < gridSize.y; y++)
                 {
-                    ret[x, y] = GetCellRow(x)[y];
+                    ret[x, y] = GetCell(x, y);
                 }
             }
 
             return ret;
+        }
+
+        public T GetCell(int x, int y)
+        {
+            return GetCellRow(x)[y];
         }
     }
 }
