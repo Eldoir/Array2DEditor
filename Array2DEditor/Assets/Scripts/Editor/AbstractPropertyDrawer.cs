@@ -1,13 +1,28 @@
 ﻿using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Array2DEditor
 {
     public abstract class AbstractPropertyDrawer : PropertyDrawer
     {
+        protected bool VerticalScrollBarIsVisible { get; private set; }
+
+        private ScrollView inspectorScrollView = null;
         private MethodInfo boldFontMethodInfo = null;
         
+
+        protected abstract void _OnGUI(Rect position, SerializedProperty property, GUIContent label);
+
+
+        public sealed override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            VerticalScrollBarIsVisible = GetVerticalScrollBarIsVisible(); // We have to check this every frame
+            
+            _OnGUI(position, property, label);
+        }
+
         protected void TryFindPropertyRelative(SerializedProperty parent, string relativePropertyPath, out SerializedProperty prop)
         {
             prop = parent.FindPropertyRelative(relativePropertyPath);
@@ -18,39 +33,6 @@ namespace Array2DEditor
             }
         }
 
-        protected bool VerticalScrollBarIsVisible()
-        {
-            var windows = Resources.FindObjectsOfTypeAll<EditorWindow>();
-
-            foreach (var editor in windows)
-            {
-                if (editor.titleContent.text == "Inspector")
-                {
-                    var scrollViewFieldInfo = editor.GetType()
-                        .GetField("m_ScrollView",
-                            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-                    if (scrollViewFieldInfo != null)
-                    {
-                        var scrollView = (UnityEngine.UIElements.ScrollView) scrollViewFieldInfo.GetValue(editor);
-
-                        if (scrollView != null) // is null once after a recompile
-                            return scrollView.verticalScroller.visible;
-                        else
-                            return false;
-                    }
-                    else
-                    {
-                        Debug.LogError("m_ScrollView couldn't be found in InspectorWindow.");
-                        return false;
-                    }
-                }
-            }
-
-            Debug.LogError("InspectorWindow couldn't be found.");
-            return false;
-        }
-        
         protected void SetBoldDefaultFont(bool bold)
         {
             if (boldFontMethodInfo == null)
@@ -58,6 +40,37 @@ namespace Array2DEditor
                     BindingFlags.Static | BindingFlags.NonPublic);
             
             boldFontMethodInfo?.Invoke(null, new[] { bold as object });
+        }
+        
+        private bool GetVerticalScrollBarIsVisible()
+        {
+            if (inspectorScrollView == null)
+            {
+                var windows = Resources.FindObjectsOfTypeAll<EditorWindow>();
+
+                foreach (var editor in windows)
+                {
+                    if (editor.titleContent.text == "Inspector")
+                    {
+                        var scrollViewFieldInfo = editor.GetType()
+                            .GetField("m_ScrollView",
+                                BindingFlags.NonPublic | BindingFlags.Instance);
+                        
+                        if (scrollViewFieldInfo != null)
+                        {
+                            inspectorScrollView = (ScrollView) scrollViewFieldInfo.GetValue(editor);
+                            break;
+                        }
+                        else
+                        {
+                            Debug.LogError("m_ScrollView couldn't be found in InspectorWindow.");
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return inspectorScrollView.verticalScroller.visible;
         }
 
         #region Debug

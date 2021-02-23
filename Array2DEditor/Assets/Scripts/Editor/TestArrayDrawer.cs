@@ -76,7 +76,7 @@ namespace Array2DEditor
         protected abstract void SetValue(SerializedProperty cell, object obj);
 
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        protected override void _OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             this.property = property;
             
@@ -132,7 +132,7 @@ namespace Array2DEditor
                 var gridSizeFieldRect = new Rect(gridSizeLabelRect);
                 gridSizeFieldRect.x += EditorGUIUtility.labelWidth;
                 gridSizeFieldRect.width = FieldWidth - spacingBetweenSizeFieldAndApplyButton - applyButtonWidth -
-                                          (VerticalScrollBarIsVisible() ? verticalScrollBarWidth : 0f);
+                                          (VerticalScrollBarIsVisible ? verticalScrollBarWidth : 0f);
                 newGridSize = EditorGUI.Vector2IntField(gridSizeFieldRect, GUIContent.none, newGridSize);
                 
                 SetBoldDefaultFont(false);
