@@ -8,13 +8,13 @@ namespace Array2DEditor
         [SerializeField]
         private Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
         
-        #pragma warning disable 219
+        #pragma warning disable 414
         /// <summary>
         /// NOTE: Only used to display the cells in the Editor. This won't affect the build.
         /// </summary>
         [SerializeField]
         private Vector2Int cellSize = new Vector2Int(32, 16);
-        #pragma warning restore 219
+        #pragma warning restore 414
 
         protected abstract CellRow<T> GetCellRow(int idx);
 
