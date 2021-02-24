@@ -83,7 +83,9 @@ namespace Array2DEditor
             // This allows the PropertyDrawer to handle nested variables correctly.
             // More info: https://answers.unity.com/questions/1268850/how-to-properly-deal-with-editorguiindentlevel-in.html
             EditorGUI.indentLevel = 0;
-            
+
+            label.tooltip = $"Size: {gridSizeProperty.vector2IntValue.x}x{gridSizeProperty.vector2IntValue.y}";
+
             property.isExpanded = EditorGUI.BeginFoldoutHeaderGroup(foldoutRect, property.isExpanded, label,
                 menuAction: ShowHeaderContextMenu);
             EditorGUI.EndFoldoutHeaderGroup();
