@@ -13,4 +13,7 @@ namespace Array2DEditor
             return cells[idx];
         }
     }
+    
+    [System.Serializable]
+    public class CellRowExampleEnum : CellRow<ExampleEnum> { }
 }

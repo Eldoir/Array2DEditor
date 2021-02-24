@@ -2,8 +2,7 @@
 
 namespace Array2DEditor
 {
-    [CustomPropertyDrawer(typeof(Array2DExampleEnum))]
-    public class TestArrayExampleEnumDrawer : TestArrayDrawer
+    public class TestArrayEnumDrawer<T> : TestArrayDrawer
     {
         protected override object GetDefaultCellValue() => 0;
 

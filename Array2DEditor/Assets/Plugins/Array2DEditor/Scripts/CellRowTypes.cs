@@ -12,7 +12,4 @@ namespace Array2DEditor
     
     [System.Serializable]
     public class CellRowString : CellRow<string> { }
-    
-    [System.Serializable]
-    public class CellRowExampleEnum : CellRow<ExampleEnum> { }
 }
