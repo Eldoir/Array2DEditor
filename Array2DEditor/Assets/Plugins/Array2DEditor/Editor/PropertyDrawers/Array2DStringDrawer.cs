@@ -3,7 +3,7 @@
 namespace Array2DEditor
 {
     [CustomPropertyDrawer(typeof(Array2DString))]
-    public class TestArrayStringDrawer : TestArrayDrawer
+    public class Array2DStringDrawer : Array2DDrawer
     {
         protected override object GetDefaultCellValue() => string.Empty;
 

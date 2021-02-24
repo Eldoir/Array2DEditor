@@ -2,7 +2,7 @@
 
 namespace Array2DEditor
 {
-    public class TestArrayEnumDrawer<T> : TestArrayDrawer
+    public class Array2DEnumDrawer<T> : Array2DDrawer
     {
         protected override object GetDefaultCellValue() => 0;
 

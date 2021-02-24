@@ -3,7 +3,7 @@
 namespace Array2DEditor
 {
     [CustomPropertyDrawer(typeof(Array2DFloat))]
-    public class TestArrayFloatDrawer : TestArrayDrawer
+    public class Array2DFloatDrawer : Array2DDrawer
     {
         protected override object GetDefaultCellValue() => 0f;
 

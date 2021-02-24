@@ -3,5 +3,5 @@
 namespace Array2DEditor
 {
     [CustomPropertyDrawer(typeof(Array2DExampleEnum))]
-    public class TestArrayExampleEnumDrawer : TestArrayEnumDrawer<ExampleEnum> {}
+    public class Array2DExampleEnumDrawer : Array2DEnumDrawer<ExampleEnum> {}
 }

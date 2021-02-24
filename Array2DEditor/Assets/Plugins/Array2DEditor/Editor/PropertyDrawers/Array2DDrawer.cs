@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace Array2DEditor
 {
-    public abstract class TestArrayDrawer : PropertyDrawer
+    public abstract class Array2DDrawer : PropertyDrawer
     {
         private static float LineHeight => EditorGUIUtility.singleLineHeight;
         
