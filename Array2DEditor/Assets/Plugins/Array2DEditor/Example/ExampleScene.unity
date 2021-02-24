@@ -341,21 +341,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shape:
     gridSize: {x: 3, y: 4}
-    cellSize: {x: 32, y: 16}
+    cellSize: {x: 16, y: 16}
     cells:
     - row: 010001
     - row: 010001
     - row: 010001
     - row: 010101
-  pieces:
-  - gridSize: {x: 0, y: 0}
-    cellSize: {x: 0, y: 0}
-    cells: []
-  - gridSize: {x: 3, y: 3}
-    cellSize: {x: 32, y: 16}
-    cells:
-    - row: 000000000000000000000000
-    - row: 000000000000000000000000
-    - row: 000000000000000000000000
   prefabToInstantiate: {fileID: 1098349222822146, guid: 75ed5123bc431ba44834864d493ab0a6,
     type: 3}

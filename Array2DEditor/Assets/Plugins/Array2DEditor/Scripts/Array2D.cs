@@ -15,7 +15,7 @@ namespace Array2DEditor
         /// NOTE: Only used to display the cells in the Editor. This won't affect the build.
         /// </summary>
         [SerializeField]
-        private Vector2Int cellSize = new Vector2Int(32, 16);
+        private Vector2Int cellSize;
         #pragma warning restore 414
 
         protected abstract CellRow<T> GetCellRow(int idx);

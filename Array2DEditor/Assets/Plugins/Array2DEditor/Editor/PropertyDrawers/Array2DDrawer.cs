@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Array2DEditor
 {
@@ -44,7 +44,9 @@ namespace Array2DEditor
         
         #endregion
 
-        #region Abstract methods
+        #region Abstract and virtual methods
+
+        protected virtual Vector2Int GetDefaultCellSizeValue() => new Vector2Int(32, 16);
         
         protected abstract object GetDefaultCellValue();
         protected abstract object GetCellValue(SerializedProperty cell);
@@ -66,6 +68,12 @@ namespace Array2DEditor
             if (gridSizeProperty == null || cellSizeProperty == null || cellsProperty == null)
             {
                 return;
+            }
+            
+            // Initialize cell size to default value if not already done
+            if (cellSizeProperty.vector2IntValue == default)
+            {
+                cellSizeProperty.vector2IntValue = GetDefaultCellSizeValue();
             }
 
             position = EditorGUI.IndentedRect(position);
