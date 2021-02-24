@@ -1,49 +1,44 @@
-/*
- * Arthur Cousseau, 2020
- * https://www.linkedin.com/in/arthurcousseau/
- * Please share this if you enjoy it! :)
-*/
-
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Array2DEditor
 {
-    public abstract class Array2D<T> : ScriptableObject
+    [System.Serializable]
+    public abstract class Array2D<T>
     {
-
-        [SerializeField]
-        protected Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
-
-
         public Vector2Int GridSize => gridSize;
-
+        
+        [SerializeField]
+        private Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
+        
+        #pragma warning disable 414
+        /// <summary>
+        /// NOTE: Only used to display the cells in the Editor. This won't affect the build.
+        /// </summary>
+        [SerializeField]
+        private Vector2Int cellSize = new Vector2Int(32, 16);
+        #pragma warning restore 414
 
         protected abstract CellRow<T> GetCellRow(int idx);
 
 
         public T[,] GetCells()
         {
-            T[,] ret = new T[gridSize.x, gridSize.y];
+            var ret = new T[gridSize.y, gridSize.x];
 
-            for (var x = 0; x < gridSize.x; x++)
+            for (var y = 0; y < gridSize.y; y++)
             {
-                for (var y = 0; y < gridSize.y; y++)
+                for (var x = 0; x < gridSize.x; x++)
                 {
-                    ret[x, y] = GetCellRow(x)[y];
+                    ret[y, x] = GetCell(x, y);
                 }
             }
 
             return ret;
         }
-    }
 
-    [System.Serializable]
-    public class CellRow<T>
-    {
-        [SerializeField]
-        private T[] row = new T[Consts.defaultGridSize];
-
-
-        public T this[int i] => row[i];
+        public T GetCell(int x, int y)
+        {
+            return GetCellRow(y)[x];
+        }
     }
 }
