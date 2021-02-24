@@ -56,7 +56,7 @@ namespace Array2DEditor
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             thisProperty = property;
-            
+
             // Initialize properties
             GetGridSizeProperty(property);
             GetCellSizeProperty(property);
@@ -68,6 +68,8 @@ namespace Array2DEditor
                 return;
             }
 
+            position = EditorGUI.IndentedRect(position);
+
             // Begin property drawing
             EditorGUI.BeginProperty(position, label, property);
 
@@ -76,6 +78,12 @@ namespace Array2DEditor
             {
                 height = LineHeight
             };
+
+            // We're using EditorGUI.IndentedRect to draw our Rects, and it already takes the indentLevel into account, so we must set it to 0.
+            // This allows the PropertyDrawer to handle nested variables correctly.
+            // More info: https://answers.unity.com/questions/1268850/how-to-properly-deal-with-editorguiindentlevel-in.html
+            EditorGUI.indentLevel = 0;
+            
             property.isExpanded = EditorGUI.BeginFoldoutHeaderGroup(foldoutRect, property.isExpanded, label,
                 menuAction: ShowHeaderContextMenu);
             EditorGUI.EndFoldoutHeaderGroup();
@@ -223,6 +231,7 @@ namespace Array2DEditor
                         x = cellRect.x + (cellRect.width + cellSpacing.x) * x,
                         y = cellRect.y + (cellRect.height + cellSpacing.y) * y
                     };
+
                     EditorGUI.PropertyField(pos, GetRowAt(y).GetArrayElementAtIndex(x), GUIContent.none);
                 }
             }
