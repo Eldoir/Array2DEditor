@@ -218,9 +218,10 @@ namespace Array2DEditor
             {
                 height += spacingBetweenFoldoutAndFirstLine;
                 height += LineHeight + lineMargin; // GridSize line
+                
                 if (wrongGridSize)
                 {
-                    height += 2 * LineHeight + lineMargin;
+                    height += 2 * LineHeight + lineMargin; // Helpbox line
                 }
 
                 height += gridSizeProperty.vector2IntValue.y * (cellSizeProperty.vector2IntValue.y + cellSpacing.y) - cellSpacing.y; // Cells lines
