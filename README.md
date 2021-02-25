@@ -6,40 +6,34 @@ Use this if you want to deal with 2D arrays easily within the inspector of Unity
 
 For a quick import into an existing project, just get the [UnityPackage](Array2DEditorPackage.unitypackage).
 
-The `Array2DEditor` folder is an empty project with only the plugin imported and some examples! :)
+The `Array2DEditor` folder on this repo is an empty project with only the plugin imported and some examples! 🙂
 
-Then, when you're in your project:
+To get started:
+- Just use the types defined by `Array2DEditor`, such as `Array2DInt`, `Array2DBool`, `Array2DString`...
+- Don't forget to add `using Array2DEditor` on top of your script.
+- You can then use the method `GetCells()` or `GetCell(int x, int y)` on your variable to get the values from your array at runtime!
 
-- Right click in your `Project` or `Hierarchy` window, or go to the `Assets` menu tab.
-- Go to `Create -> Array2D` and select the type of your choice (`Bool`, `Int`, `Float`, `String`).
-- A new file is created, you can freely change its values!
-- Reference that file in one of your scripts, and call its method `GetCells()` to get the content of the array.
-- When you do this, don't forget to add `using Array2DEditor` on top of your script.
-- You can check the `ExampleScene` if you have trouble understanding how it works and how it can be useful.
-
-## Screenshots
+## See it in action
 
 ![Example 1](Screenshots/Example_1.PNG)
-![Example 2](Screenshots/Example_2.PNG)
+![Example 2](Screenshots/Example_2.gif)
 
-## Going further
+## Create arrays from your own types!
 
-You can create your own enum files! In order to do that:
-- Duplicate the `Array2DExampleEnum` script and rename it.
-- Open the file and rename the class with the name of the file.
-- Replace any mention of `Enums.ExampleEnum` with your own enum name.
-- In that same file, don't forget to rename `CellRowExampleEnum` as well.
-
-Then:
-- Duplicate the `Array2DExampleEnumEditor` script and rename it.
-- Open the file and rename the class with the name of the file.
-- Replace `Enums.ExampleEnum` with your own enum name.
-- You can change the values of `CellWidth` and `CellHeight` as you wish!
-
-![Example 3](Screenshots/Example_3.PNG)
+To do that:
+- Create a new class inheriting from `CellRow<T>` with your own type as the `T` type.
+	- See the classes in `CellRowTypes` as an example.
+- Create a new class inheriting from `Array2D<T>` with your own type as the `T` type.
+	- See the existing `Array2D<T>` classes that you can find in the `Array2DTypes` folder as an example.
+- Create a new class inheriting from `Array2DDrawer` and put it in an `Editor` folder.
+	- See the existing `Array2DDrawer` classes that you can find in the `Editor/PropertyDrawers` folder as an example.
+- If your type is an enum, you can make your `PropertyDrawer` inherit directly from `Array2DEnumDrawer`. The code will then be trivial.
+	- See `Array2DExampleEnumDrawer` as an example.
 
 ## Notes
 
+* The plugin currently does not display well with collections of Array2D's (such as arrays or lists).
+* Array2D's don't display in a ScrollView, so you're limited to a certain grid width before it goes out of the Inspector window. On a 1080p screen with a fullscreen Inspector window, you can have 50 cells with a 32px cell width, or 90 cells with a 16px cell width. You can change the cell size at any moment from the Inspector using the dropdown menu of any Array2D.
 * Last tested with [Unity 2019.4.13f1 (LTS)](https://unity3d.com/unity/whats-new/2019.4.13).
 
 ## Authors
