@@ -4,9 +4,9 @@ Use this if you want to deal with 2D arrays easily within the inspector of Unity
 
 ## Getting Started
 
-For a quick import into an existing project, just get the [UnityPackage](Array2DEditorPackage.unitypackage).
+For a quick import into an existing project, just get the [UnityPackage](Array2DEditorPackage.unitypackage). It also contains some examples.
 
-The `Array2DEditor` folder on this repo is an empty project with only the plugin imported and some examples! 🙂
+The `Array2DEditor` folder on this repo is an empty project with only the plugin imported! 🙂
 
 To get started:
 - Just use the types defined by `Array2DEditor`, such as `Array2DInt`, `Array2DBool`, `Array2DString`...
