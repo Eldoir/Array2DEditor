@@ -1,38 +1,40 @@
 ﻿using UnityEngine;
-using Array2DEditor;
 
-public class ExampleScript : MonoBehaviour
+namespace Array2DEditor
 {
-
-    [SerializeField]
-    private Array2DBool shape = null;
-
-    [SerializeField]
-    private GameObject prefabToInstantiate = null;
-
-
-	void Start()
+    public class ExampleScript : MonoBehaviour
     {
-        if (shape == null || prefabToInstantiate == null)
+    
+        [SerializeField]
+        private Array2DBool shape = null;
+    
+        [SerializeField]
+        private GameObject prefabToInstantiate = null;
+    
+    
+    	void Start()
         {
-            Debug.LogError("Fill in all the fields in order to start this example.");
-            return;
-        }
-
-        var cells = shape.GetCells();
-
-        var piece = new GameObject("Piece");
-
-        for (var y = 0; y < shape.GridSize.y; y++)
-        {
-            for (var x = 0; x < shape.GridSize.x; x++)
+            if (shape == null || prefabToInstantiate == null)
             {
-                if (cells[y, x])
+                Debug.LogError("Fill in all the fields in order to start this example.");
+                return;
+            }
+    
+            var cells = shape.GetCells();
+    
+            var piece = new GameObject("Piece");
+    
+            for (var y = 0; y < shape.GridSize.y; y++)
+            {
+                for (var x = 0; x < shape.GridSize.x; x++)
                 {
-                    var prefabGO = Instantiate(prefabToInstantiate, new Vector3(y, 0, x), Quaternion.identity, piece.transform);
-                    prefabGO.name = $"({x}, {y})";
+                    if (cells[y, x])
+                    {
+                        var prefabGO = Instantiate(prefabToInstantiate, new Vector3(y, 0, x), Quaternion.identity, piece.transform);
+                        prefabGO.name = $"({x}, {y})";
+                    }
                 }
             }
-        }
-	}
+    	}
+    }
 }
