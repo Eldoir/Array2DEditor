@@ -25,8 +25,7 @@ public class EditorWindowVector2IntField : EditorWindow
         var window = GetWindow<EditorWindowVector2IntField>();
         window.maxSize = new Vector2(250, 100);
 
-        // Showing it as a modal forces the user to process it immediately
-        window.ShowModalUtility();
+        window.ShowPopup();
     }
 
     void OnGUI()
