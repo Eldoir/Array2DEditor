@@ -242,7 +242,12 @@ namespace Array2DEditor
                         y = cellRect.y + (cellRect.height + cellSpacing.y) * y
                     };
 
-                    EditorGUI.PropertyField(pos, GetRowAt(y).GetArrayElementAtIndex(x), GUIContent.none);
+                    SerializedProperty property = GetRowAt(y).GetArrayElementAtIndex(x);
+
+                    if (property.propertyType == SerializedPropertyType.ObjectReference)
+                        EditorGUI.ObjectField(pos, property, typeof(Sprite), GUIContent.none);
+                    else
+                        EditorGUI.PropertyField(pos, property, GUIContent.none);
                 }
             }
         }
