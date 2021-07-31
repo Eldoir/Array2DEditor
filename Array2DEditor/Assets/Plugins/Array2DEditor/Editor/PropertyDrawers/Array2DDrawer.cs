@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 namespace Array2DEditor
 {
@@ -242,7 +243,20 @@ namespace Array2DEditor
                         y = cellRect.y + (cellRect.height + cellSpacing.y) * y
                     };
 
-                    EditorGUI.PropertyField(pos, GetRowAt(y).GetArrayElementAtIndex(x), GUIContent.none);
+                    var property = GetRowAt(y).GetArrayElementAtIndex(x);
+
+                    if (property.propertyType == SerializedPropertyType.ObjectReference)
+                    {
+                        var match = Regex.Match(property.type, @"PPtr<\$(.+)>");
+                        if (match.Success)
+                        {
+                            var objectType = match.Groups[1].ToString();
+                            var assemblyName = "UnityEngine";
+                            EditorGUI.ObjectField(pos, property, System.Type.GetType($"{assemblyName}.{objectType}, {assemblyName}"), GUIContent.none);
+                        }
+                    }
+                    else
+                        EditorGUI.PropertyField(pos, property, GUIContent.none);
                 }
             }
         }

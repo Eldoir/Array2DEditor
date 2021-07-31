@@ -1,4 +1,5 @@
-﻿
+﻿using UnityEngine;
+
 namespace Array2DEditor
 {
     [System.Serializable]
@@ -12,4 +13,10 @@ namespace Array2DEditor
     
     [System.Serializable]
     public class CellRowString : CellRow<string> { }
+    
+    [System.Serializable]
+    public class CellRowSprite : CellRow<Sprite> { }
+    
+    [System.Serializable]
+    public class CellRowAudioClip : CellRow<AudioClip> { }
 }
