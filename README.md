@@ -40,6 +40,7 @@ To do that:
 
 * **[Arthur Cousseau](https://www.linkedin.com/in/arthurcousseau/)**
 * Thanks to **[Bugbyte Studio](https://www.linkedin.com/in/bugbytestudio/)** for the idea of using Enums in `Array2DEditor`.
+* Thanks to **[CarlosManuelRodr](https://github.com/carlosmanuelrodr)** for the idea of using Sprites (and Objects in general) in `Array2DEditor`.
 
 ## License
 
