@@ -7,7 +7,11 @@ namespace Array2DEditor
     {
         [SerializeField]
         private T[] row = new T[Consts.defaultGridSize];
-        
-        public T this[int i] => row[i];
+
+        public T this[int i]
+        {
+            get => row[i];
+            set => row[i] = value;
+        }
     }
 }

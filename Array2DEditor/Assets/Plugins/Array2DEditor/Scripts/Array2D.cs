@@ -40,5 +40,10 @@ namespace Array2DEditor
         {
             return GetCellRow(y)[x];
         }
+        
+        public void SetCell(int x, int y, T value)
+        {
+            GetCellRow(y)[x] = value;
+        }
     }
 }
