@@ -13,7 +13,7 @@ public class EditorWindowVector2IntField : EditorWindow
     private static OnApply onApply;
 
 
-    public static void ShowWindow(Vector2Int fieldValue, OnApply onApplyCallback, string label)
+    public static void ShowWindow(string title, Vector2Int fieldValue, OnApply onApplyCallback, string label)
     {
         newFieldValue = fieldValue;
         onApply = onApplyCallback;
@@ -23,6 +23,7 @@ public class EditorWindowVector2IntField : EditorWindow
 
         // Get existing open window or if none, make a new one
         var window = GetWindow<EditorWindowVector2IntField>();
+        window.titleContent = new GUIContent(title);
         window.maxSize = new Vector2(250, 100);
 
         window.ShowPopup();

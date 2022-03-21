@@ -129,12 +129,12 @@ namespace Array2DEditor
 
         private void OnChangeGridSize()
         {
-            EditorWindowVector2IntField.ShowWindow(gridSizeProperty.vector2IntValue, InitNewGridAndRestorePreviousValues, Texts.gridSizeLabel);
+            EditorWindowVector2IntField.ShowWindow("Change Grid Size", gridSizeProperty.vector2IntValue, InitNewGridAndRestorePreviousValues, Texts.gridSizeLabel);
         }
         
         private void OnChangeCellSize()
         {
-            EditorWindowVector2IntField.ShowWindow(cellSizeProperty.vector2IntValue, SetNewCellSize, Texts.cellSizeLabel);
+            EditorWindowVector2IntField.ShowWindow("Change Cell Size", cellSizeProperty.vector2IntValue, SetNewCellSize, Texts.cellSizeLabel);  ;
         }
 
         private void SetNewCellSize(Vector2Int newCellSize)
