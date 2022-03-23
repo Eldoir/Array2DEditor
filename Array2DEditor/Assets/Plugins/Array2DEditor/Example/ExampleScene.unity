@@ -340,15 +340,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape:
-    gridSize: {x: 3, y: 4}
+    gridSize: {x: 2, y: 3}
     cellSize: {x: 16, y: 16}
     cells:
-    - row: 010001
-    - row: 010001
-    - row: 010001
-    - row: 010101
+    - row: 0100
+    - row: 0000
+    - row: 0000
   prefabToInstantiate: {fileID: 1098349222822146, guid: 75ed5123bc431ba44834864d493ab0a6,
     type: 3}
+  DEBUGSIZE: {x: 2, y: 3}
 --- !u!1 &1785466055
 GameObject:
   m_ObjectHideFlags: 0

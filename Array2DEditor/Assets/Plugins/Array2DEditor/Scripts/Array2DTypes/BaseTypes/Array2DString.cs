@@ -6,9 +6,19 @@ namespace Array2DEditor
     public class Array2DString : Array2D<string>
     {
         [SerializeField]
-        CellRowString[] cells = new CellRowString[Consts.defaultGridSize];
+        RowString[] cells = new RowString[Consts.DefaultGridWidth];
 
-        protected override CellRow<string> GetCellRow(int idx)
+        protected override void ResetGrid(int newWidth, int newHeight)
+        {
+            cells = new RowString[newHeight];
+
+            for (int i = 0; i < newHeight; i++)
+            {
+                cells[i] = new RowString();
+            }
+        }
+
+        protected override Row<string> GetRow(int idx)
         {
             return cells[idx];
         }

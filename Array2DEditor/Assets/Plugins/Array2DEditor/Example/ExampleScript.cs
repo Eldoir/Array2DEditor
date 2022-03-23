@@ -10,9 +10,15 @@ namespace Array2DEditor
     
         [SerializeField]
         private GameObject prefabToInstantiate = null;
-    
-    
-    	void Start()
+
+        public Vector2Int DEBUGSIZE = Vector2Int.one;
+
+        private void OnValidate()
+        {
+            shape?.SetGridSize(DEBUGSIZE);
+        }
+
+        void Start()
         {
             if (shape == null || prefabToInstantiate == null)
             {

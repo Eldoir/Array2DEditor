@@ -6,9 +6,19 @@ namespace Array2DEditor
     public class Array2DAudioClip : Array2D<AudioClip>
     {
         [SerializeField]
-        CellRowAudioClip[] cells = new CellRowAudioClip[Consts.defaultGridSize];
+        RowAudioClip[] cells = new RowAudioClip[Consts.DefaultGridWidth];
 
-        protected override CellRow<AudioClip> GetCellRow(int idx)
+        protected override void ResetGrid(int newWidth, int newHeight)
+        {
+            cells = new RowAudioClip[newHeight];
+            
+            for(int i = 0; i < newHeight; i++)
+            {
+                cells[i] = new RowAudioClip();
+            }
+        }
+
+        protected override Row<AudioClip> GetRow(int idx)
         {
             return cells[idx];
         }

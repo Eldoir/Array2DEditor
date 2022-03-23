@@ -1,6 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Reflection;
+using System;
 
 namespace Array2DEditor
 {
@@ -52,13 +54,16 @@ namespace Array2DEditor
         protected abstract object GetDefaultCellValue();
         protected abstract object GetCellValue(SerializedProperty cell);
         protected abstract void SetValue(SerializedProperty cell, object obj);
-        
-        #endregion
 
+        #endregion
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             thisProperty = property;
+
+            Type propertyType = property.serializedObject.targetObject.GetType();
+            FieldInfo fieldInfo = propertyType.GetField(property.name);
+            object targetObject = fieldInfo.GetValue(property.serializedObject.targetObject);
 
             // Initialize properties
             GetGridSizeProperty(property);
@@ -134,7 +139,7 @@ namespace Array2DEditor
         
         private void OnChangeCellSize()
         {
-            EditorWindowVector2IntField.ShowWindow("Change Cell Size", cellSizeProperty.vector2IntValue, SetNewCellSize, Texts.cellSizeLabel);  ;
+            EditorWindowVector2IntField.ShowWindow("Change Cell Size", cellSizeProperty.vector2IntValue, SetNewCellSize, Texts.cellSizeLabel);
         }
 
         private void SetNewCellSize(Vector2Int newCellSize)
@@ -263,7 +268,11 @@ namespace Array2DEditor
         
         private SerializedProperty GetRowAt(int idx)
         {
-            return cellsProperty.GetArrayElementAtIndex(idx).FindPropertyRelative("row");
+            if (idx >= cellsProperty.arraySize)
+                return null;
+
+            SerializedProperty rowProperty = cellsProperty.GetArrayElementAtIndex(idx);
+            return rowProperty?.FindPropertyRelative("row");
         }
         
         private void TryFindPropertyRelative(SerializedProperty parent, string relativePropertyPath, out SerializedProperty prop)

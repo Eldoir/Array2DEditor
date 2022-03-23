@@ -10,7 +10,7 @@ namespace Array2DEditor
         public Vector2Int GridSize => gridSize;
         
         [SerializeField]
-        private Vector2Int gridSize = Vector2Int.one * Consts.defaultGridSize;
+        private Vector2Int gridSize = new Vector2Int(Consts.DefaultGridWidth, Consts.DefaultGridHeight);
         
         #pragma warning disable 414
         /// <summary>
@@ -20,7 +20,41 @@ namespace Array2DEditor
         private Vector2Int cellSize;
         #pragma warning restore 414
 
-        protected abstract CellRow<T> GetCellRow(int idx);
+        protected abstract void ResetGrid(int newWidth, int newHeight);
+        protected abstract Row<T> GetRow(int idx);
+
+        #region Grid Size
+
+        public void SetGridSize(Vector2Int newGridSize) => SetGridSize(newGridSize.x, newGridSize.y);
+
+        public void SetGridSize(int newWidth, int newHeight)
+        {
+            T[,] previousCells = GetCells();
+            Vector2Int previousGridSize = gridSize;
+
+            ResetGrid(newWidth, newHeight);
+
+            // Restore cells from previous grid, if any
+            for (int y = 0; y < newHeight; y++)
+            {
+                GetRow(y).SetSize(newWidth);
+
+                for (int x = 0; x < newWidth; x++)
+                {
+                    if (x < previousGridSize.x && y < previousGridSize.y)
+                    {
+                        SetCell(x, y, previousCells[y, x]);
+                    }
+                }
+            }
+
+            gridSize.x = newWidth;
+            gridSize.y = newHeight;
+        }
+
+        #endregion
+
+        #region Cells
 
         public T this[int x, int y]
         {
@@ -45,12 +79,12 @@ namespace Array2DEditor
 
         public T GetCell(int x, int y)
         {
-            return GetCellRow(y)[x];
+            return GetRow(y)[x];
         }
         
         public void SetCell(int x, int y, T value)
         {
-            GetCellRow(y)[x] = value;
+            GetRow(y)[x] = value;
         }
         
         IEnumerator<T> IEnumerable<T>.GetEnumerator()

@@ -6,9 +6,19 @@ namespace Array2DEditor
     public class Array2DBool : Array2D<bool>
     {
         [SerializeField]
-        CellRowBool[] cells = new CellRowBool[Consts.defaultGridSize];
+        RowBool[] cells = new RowBool[Consts.DefaultGridWidth];
 
-        protected override CellRow<bool> GetCellRow(int idx)
+        protected override void ResetGrid(int newWidth, int newHeight)
+        {
+            cells = new RowBool[newHeight];
+
+            for (int i = 0; i < newHeight; i++)
+            {
+                cells[i] = new RowBool();
+            }
+        }
+
+        protected override Row<bool> GetRow(int idx)
         {
             return cells[idx];
         }

@@ -3,20 +3,20 @@
 namespace Array2DEditor
 {
     [System.Serializable]
-    public class CellRowBool : CellRow<bool> { }
+    public class RowBool : Row<bool> { }
     
     [System.Serializable]
-    public class CellRowFloat : CellRow<float> { }
+    public class RowFloat : Row<float> { }
     
     [System.Serializable]
-    public class CellRowInt : CellRow<int> { }
+    public class RowInt : Row<int> { }
     
     [System.Serializable]
-    public class CellRowString : CellRow<string> { }
+    public class RowString : Row<string> { }
     
     [System.Serializable]
-    public class CellRowSprite : CellRow<Sprite> { }
+    public class RowSprite : Row<Sprite> { }
     
     [System.Serializable]
-    public class CellRowAudioClip : CellRow<AudioClip> { }
+    public class RowAudioClip : Row<AudioClip> { }
 }
