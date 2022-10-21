@@ -20,7 +20,12 @@ namespace Array2DEditor
 
         protected abstract CellRow<T> GetCellRow(int idx);
 
-
+        public T this[int x, int y]
+        {
+            get => GetCell(x, y);
+            set => SetCell(x, y, value);
+        }
+        
         public T[,] GetCells()
         {
             var ret = new T[gridSize.y, gridSize.x];
