@@ -22,8 +22,8 @@ namespace Array2DEditor
 
         public T this[int x, int y]
         {
-            set => SetCell(x, y, value);
             get => GetCell(x, y);
+            set => SetCell(x, y, value);
         }
         
         public T[,] GetCells()
