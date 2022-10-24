@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Array2DEditor
 {
     [System.Serializable]
-    public abstract class Array2D<T>
+    public abstract class Array2D<T> : IEnumerable<T>
     {
         public Vector2Int GridSize => gridSize;
         
@@ -49,6 +51,22 @@ namespace Array2DEditor
         public void SetCell(int x, int y, T value)
         {
             GetCellRow(y)[x] = value;
+        }
+        
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+            for (int x = 0; x < GridSize.x; x++)
+            {
+                for (int y = 0; y < GridSize.y; y++)
+                {
+                    yield return this[x, y];
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<T>)this).GetEnumerator();
         }
     }
 }
