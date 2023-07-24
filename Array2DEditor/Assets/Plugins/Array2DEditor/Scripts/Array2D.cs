@@ -86,7 +86,11 @@ namespace Array2DEditor
         {
             GetRow(y)[x] = value;
         }
-        
+
+        #endregion
+
+        #region IEnumerable
+
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             for (int x = 0; x < GridSize.x; x++)
@@ -102,5 +106,7 @@ namespace Array2DEditor
         {
             return ((IEnumerable<T>)this).GetEnumerator();
         }
+
+        #endregion
     }
 }
