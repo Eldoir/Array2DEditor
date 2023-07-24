@@ -134,7 +134,7 @@ namespace Array2DEditor
         
         private void OnChangeCellSize()
         {
-            EditorWindowVector2IntField.ShowWindow("Change Cell Size", cellSizeProperty.vector2IntValue, SetNewCellSize, Texts.cellSizeLabel);  ;
+            EditorWindowVector2IntField.ShowWindow("Change Cell Size", cellSizeProperty.vector2IntValue, SetNewCellSize, Texts.cellSizeLabel);
         }
 
         private void SetNewCellSize(Vector2Int newCellSize)
