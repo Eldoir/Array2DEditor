@@ -52,14 +52,16 @@ namespace Array2DEditor
         {
             GetCellRow(y)[x] = value;
         }
-        
+
+        #region IEnumerable
+
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            for (int x = 0; x < GridSize.x; x++)
+            for (int y = 0; y < gridSize.y; y++)
             {
-                for (int y = 0; y < GridSize.y; y++)
+                for (int x = 0; x < gridSize.x; x++)
                 {
-                    yield return this[x, y];
+                    yield return this[y, x];
                 }
             }
         }
@@ -68,5 +70,7 @@ namespace Array2DEditor
         {
             return ((IEnumerable<T>)this).GetEnumerator();
         }
+
+        #endregion
     }
 }
